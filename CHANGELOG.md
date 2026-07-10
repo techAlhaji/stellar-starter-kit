@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Root `docker-compose.yml` to support declarative local Stellar Quickstart node management.
+- Cross-platform PowerShell helper script `scripts/setup-local-node.ps1` for Windows developers.
+- Root `package.json` command script `"node:local": "docker compose up -d"` for quick start-ups.
+- Persistent ledger data volume mapping in local docker-compose configuration.
+
+### Changed
+
+- Updated `scripts/setup-local-node.sh` to check for Docker Compose and use it as default, falling back to raw `docker run` if compose is not present.
+- Updated root `README.md` and `docs/development-guide.md` to include detailed instructions on running, managing, and shutting down the local Quickstart node.
+
 ## [0.1.0] - 2026-07-09
 
 ### Added

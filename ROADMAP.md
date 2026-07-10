@@ -32,9 +32,9 @@ _Focus: Monorepo configuration, developer environments, and initial scaffolding.
 
 - [x] Configure pnpm workspace and Turborepo.
 - [x] Setup Next.js 15, TypeScript, TailwindCSS, and shadcn/ui.
-- [ ] Configure ESLint, Prettier, Husky, and Conventional Commits.
-- [ ] Build basic Docker dev environment and Stellar Quickstart setup script.
-- [ ] Create basic documentation site template.
+- [x] Configure ESLint, Prettier, Husky, and Conventional Commits.
+- [x] Build basic Docker dev environment and Stellar Quickstart setup script.
+- [x] Create basic documentation site template.
 
 ### :wallet: v0.2: Wallet & Soroban Integration (Months 3–5)
 

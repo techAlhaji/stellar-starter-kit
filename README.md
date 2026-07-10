@@ -146,12 +146,26 @@ cp .env.example .env.local
 
 ### 3. Spin Up Local Node
 
-Start a local standalone quickstart docker node for development:
+Start a local standalone Quickstart Docker node for development:
 
-```bash
-pnpm run prepare # Initialise git hooks
-./scripts/setup-local-node.sh
-```
+- **Using pnpm (Recommended)**:
+  ```bash
+  pnpm run node:local
+  ```
+- **Windows (PowerShell)**:
+  ```powershell
+  ./scripts/setup-local-node.ps1
+  ```
+- **macOS / Linux (Bash)**:
+  ```bash
+  ./scripts/setup-local-node.sh
+  ```
+- **Direct Docker Compose**:
+  ```bash
+  docker compose up -d
+  ```
+
+_(To stop the local node at any time, run `docker compose down`)_
 
 ### 4. Start Development Server
 

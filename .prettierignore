@@ -7,3 +7,8 @@ coverage
 package.json
 package-lock.json
 pnpm-lock.yaml
+
+# Generated code and snapshots
+**/generated/**
+**/test_snapshots/**
+

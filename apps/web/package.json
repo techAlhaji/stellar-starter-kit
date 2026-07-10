@@ -16,7 +16,8 @@
     "next": "15.0.0",
     "react": "19.0.0-rc.0",
     "react-dom": "19.0.0-rc.0",
-    "stellar-sdk": "^12.3.0",
+    "stellar-sdk": "npm:@stellar/stellar-sdk@^14.5.0",
+    "buffer": "^6.0.3",
     "lucide-react": "^0.395.0",
     "framer-motion": "^11.2.10"
   },

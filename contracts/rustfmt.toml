@@ -1,0 +1,5 @@
+max_width = 100
+edition = "2021"
+use_small_heuristics = "Max"
+merge_derives = true
+pack_imports = true

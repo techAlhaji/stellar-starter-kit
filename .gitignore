@@ -41,3 +41,7 @@ pnpm-debug.log*
 .soroban/
 target/
 Cargo.lock
+
+# Local binaries
+bin/
+

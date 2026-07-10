@@ -6,4 +6,7 @@ export const WALLET_PROVIDERS = {
   HANA: 'hana',
 } as const;
 
-export type WalletProvider = (typeof WALLET_PROVIDERS)[keyof typeof WALLET_PROVIDERS];
+export type WalletProviderType = (typeof WALLET_PROVIDERS)[keyof typeof WALLET_PROVIDERS];
+
+export * from './WalletProvider';
+

@@ -9,3 +9,6 @@ export const SOROBAN_NETWORKS = {
     rpcUrl: 'https://soroban-rpc.stellar.org',
   },
 } as const;
+
+export * as CounterClient from './generated/counter/src';
+

@@ -73,19 +73,19 @@ importers:
         version: 6.0.3
       framer-motion:
         specifier: ^11.2.10
-        version: 11.18.2(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+        version: 11.18.2(react-dom@19.0.0-rc.0(react@19.2.7))(react@19.2.7)
       lucide-react:
         specifier: ^0.395.0
-        version: 0.395.0(react@19.0.0-rc.0)
+        version: 0.395.0(react@19.2.7)
       next:
         specifier: 15.5.18
-        version: 15.5.18(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+        version: 15.5.18(react-dom@19.0.0-rc.0(react@19.2.7))(react@19.2.7)
       react:
-        specifier: 19.0.0-rc.0
-        version: 19.0.0-rc.0
+        specifier: 19.2.7
+        version: 19.2.7
       react-dom:
         specifier: 19.0.0-rc.0
-        version: 19.0.0-rc.0(react@19.0.0-rc.0)
+        version: 19.0.0-rc.0(react@19.2.7)
       stellar-sdk:
         specifier: npm:@stellar/stellar-sdk@^14.5.0
         version: '@stellar/stellar-sdk@13.3.0'
@@ -3037,10 +3037,6 @@ packages:
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  react@19.0.0-rc.0:
-    resolution: {integrity: sha512-8nrDCl5uE54FHeKqKrEO0TS+10bT4cxutJGb2okiJc0FHMQ6I3FeItaqly/1nbijlhSO3HmAVyPIexIQQWYAtQ==}
-    engines: {node: '>=0.10.0'}
-
   react@19.2.7:
     resolution: {integrity: sha512-HNe9WslTbXmFK8o8cmwgAeJFSBvt1bPdHCVKtaaV+WlAN36mpT4hcRpwbf3fY56ar2oIXzsBpOAiIRHAdY0OlQ==}
     engines: {node: '>=0.10.0'}
@@ -5518,14 +5514,14 @@ snapshots:
 
   fraction.js@5.3.4: {}
 
-  framer-motion@11.18.2(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0):
+  framer-motion@11.18.2(react-dom@19.0.0-rc.0(react@19.2.7))(react@19.2.7):
     dependencies:
       motion-dom: 11.18.1
       motion-utils: 11.18.1
       tslib: 2.8.1
     optionalDependencies:
-      react: 19.0.0-rc.0
-      react-dom: 19.0.0-rc.0(react@19.0.0-rc.0)
+      react: 19.2.7
+      react-dom: 19.0.0-rc.0(react@19.2.7)
 
   framer-motion@11.18.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
@@ -6011,10 +6007,6 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
-  lucide-react@0.395.0(react@19.0.0-rc.0):
-    dependencies:
-      react: 19.0.0-rc.0
-
   lucide-react@0.395.0(react@19.2.7):
     dependencies:
       react: 19.2.7
@@ -6078,15 +6070,15 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next@15.5.18(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0):
+  next@15.5.18(react-dom@19.0.0-rc.0(react@19.2.7))(react@19.2.7):
     dependencies:
       '@next/env': 15.5.18
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001803
       postcss: 8.4.31
-      react: 19.0.0-rc.0
-      react-dom: 19.0.0-rc.0(react@19.0.0-rc.0)
-      styled-jsx: 5.1.6(react@19.0.0-rc.0)
+      react: 19.2.7
+      react-dom: 19.0.0-rc.0(react@19.2.7)
+      styled-jsx: 5.1.6(react@19.2.7)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.5.18
       '@next/swc-darwin-x64': 15.5.18
@@ -6342,9 +6334,9 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  react-dom@19.0.0-rc.0(react@19.0.0-rc.0):
+  react-dom@19.0.0-rc.0(react@19.2.7):
     dependencies:
-      react: 19.0.0-rc.0
+      react: 19.2.7
       scheduler: 0.25.0-rc.0
 
   react-dom@19.2.7(react@19.2.7):
@@ -6353,8 +6345,6 @@ snapshots:
       scheduler: 0.27.0
 
   react-is@16.13.1: {}
-
-  react@19.0.0-rc.0: {}
 
   react@19.2.7: {}
 
@@ -6738,10 +6728,10 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  styled-jsx@5.1.6(react@19.0.0-rc.0):
+  styled-jsx@5.1.6(react@19.2.7):
     dependencies:
       client-only: 0.0.1
-      react: 19.0.0-rc.0
+      react: 19.2.7
 
   sucrase@3.35.1:
     dependencies:

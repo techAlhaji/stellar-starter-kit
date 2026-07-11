@@ -1,2 +1,2 @@
 # Clippy configuration
-disallowed-names = ["foo", "bar", "baz", "quux"]
+blacklisted-names = ["foo", "bar", "baz", "quux"]

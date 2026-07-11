@@ -1,77 +1,63 @@
 #![no_std]
-
-use soroban_sdk::{contract, contractimpl, Address, Env};
-
-mod error;
-mod event;
-mod storage;
-
-pub use crate::error::CounterError;
+use soroban_sdk::{contract, contractimpl, symbol_short, Env, Symbol};
 
 #[contract]
 pub struct CounterContract;
 
+const COUNTER_KEY: Symbol = symbol_short!("COUNTER");
+
 #[contractimpl]
 impl CounterContract {
-    /// Initialize the contract with an owner. Can only be called once.
-    pub fn initialize(env: Env, owner: Address) -> Result<(), CounterError> {
-        if storage::has_owner(&env) {
-            return Err(CounterError::AlreadyInitialized);
+    /// Retrieve the current value of the counter.
+    pub fn get(env: Env) -> u32 {
+        env.storage().instance().get(&COUNTER_KEY).unwrap_or(0)
+    }
+
+    /// Increment the counter by 1. Emits an increment event.
+    pub fn increment(env: Env) -> u32 {
+        let mut count = Self::get(env.clone());
+        count += 1;
+        env.storage().instance().set(&COUNTER_KEY, &count);
+        
+        // Extend storage TTL
+        env.storage().instance().extend_ttl(100, 100);
+
+        // Emit increment event
+        env.events().publish((symbol_short!("counter"), symbol_short!("increment")), count);
+
+        count
+    }
+
+    /// Decrement the counter by 1. Prevents underflow (stops at 0). Emits a decrement event.
+    pub fn decrement(env: Env) -> u32 {
+        let mut count = Self::get(env.clone());
+        if count > 0 {
+            count -= 1;
         }
-        storage::set_owner(&env, &owner);
-        event::emit_initialize(&env, &owner);
-        Ok(())
+        env.storage().instance().set(&COUNTER_KEY, &count);
+        
+        // Extend storage TTL
+        env.storage().instance().extend_ttl(100, 100);
+
+        // Emit decrement event
+        env.events().publish((symbol_short!("counter"), symbol_short!("decrement")), count);
+
+        count
     }
 
-    /// Retrieve the owner address.
-    pub fn get_owner(env: Env) -> Option<Address> {
-        storage::get_owner(&env)
-    }
+    /// Reset the counter back to 0. Emits a reset event.
+    pub fn reset(env: Env) -> u32 {
+        let count = 0;
+        env.storage().instance().set(&COUNTER_KEY, &count);
+        
+        // Extend storage TTL
+        env.storage().instance().extend_ttl(100, 100);
 
-    /// Retrieve the current count.
-    pub fn get_count(env: Env) -> u32 {
-        storage::get_count(&env)
-    }
+        // Emit reset event
+        env.events().publish((symbol_short!("counter"), symbol_short!("reset")), count);
 
-    /// Increment the count. Prevents overflow.
-    pub fn increment(env: Env) -> Result<u32, CounterError> {
-        if !storage::has_owner(&env) {
-            return Err(CounterError::NotInitialized);
-        }
-        let count = storage::get_count(&env);
-        let new_count = count.checked_add(1).ok_or(CounterError::Overflow)?;
-        storage::set_count(&env, new_count);
-        event::emit_increment(&env, new_count);
-        Ok(new_count)
-    }
-
-    /// Decrement the count. Prevents underflow.
-    pub fn decrement(env: Env) -> Result<u32, CounterError> {
-        if !storage::has_owner(&env) {
-            return Err(CounterError::NotInitialized);
-        }
-        let count = storage::get_count(&env);
-        let new_count = count.checked_sub(1).ok_or(CounterError::Underflow)?;
-        storage::set_count(&env, new_count);
-        event::emit_decrement(&env, new_count);
-        Ok(new_count)
-    }
-
-    /// Reset the count to 0. Enforces owner authorization.
-    pub fn reset(env: Env) -> Result<u32, CounterError> {
-        if !storage::has_owner(&env) {
-            return Err(CounterError::NotInitialized);
-        }
-        let owner = storage::get_owner(&env).ok_or(CounterError::NotInitialized)?;
-
-        // Enforce owner authorization
-        owner.require_auth();
-
-        storage::set_count(&env, 0);
-        event::emit_reset(&env, &owner);
-        Ok(0)
+        count
     }
 }
 
-#[cfg(test)]
 mod test;

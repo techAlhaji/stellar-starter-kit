@@ -1,7 +1,3 @@
 ﻿{
-    "counter":  {
-                    "contractDeployUrl":  "https://stellar.expert/explorer/testnet/tx/933f41945e44434c25ed4300439f63da758621ac2eefee787818cee9f9b446bc",
-                    "network":  "testnet",
-                    "contractId":  "CCH5B5TFLLN56KB4B762CA2IVX4MYRDDMYXDYIEITCXYIGMIEMLWWCSF"
-                }
+    "counter":  "CCATCXDTSJT4CJBVDXPJKTLFIIW44ZODSSTRRIZR73LPB7ZNXXM7D6D4"
 }

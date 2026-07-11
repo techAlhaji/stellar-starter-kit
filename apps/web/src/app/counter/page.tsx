@@ -44,21 +44,7 @@ export default function CounterDemo() {
   const [error, setError] = useState<string | null>(null);
   const [logs, setLogs] = useState<LogEntry[]>([]);
 
-  const counterDeployment = deployments.counter as unknown as
-    | string
-    | {
-        contractId: string;
-        contractDeployUrl?: string;
-        wasmUploadUrl?: string;
-        network?: string;
-      };
-  const contractId =
-    typeof counterDeployment === 'string' ? counterDeployment : counterDeployment.contractId;
-  const contractDeployUrl =
-    typeof counterDeployment === 'object' ? counterDeployment.contractDeployUrl : null;
-  const wasmUploadUrl =
-    typeof counterDeployment === 'object' ? counterDeployment.wasmUploadUrl : null;
-
+  const contractId = deployments.counter;
   const rpcUrl = 'https://soroban-testnet.stellar.org';
   const passphrase = 'Test Horizon Network ; Public Sep 2015';
 
@@ -98,7 +84,7 @@ export default function CounterDemo() {
       setError(null);
       try {
         const client = getClient();
-        const tx = await client.get_count();
+        const tx = await client.get();
         setCount(tx.result);
         if (!silent) {
           addLog('fetch', 'success', `Fetched current counter value: ${tx.result}`);
@@ -364,36 +350,6 @@ export default function CounterDemo() {
                     </a>
                   </div>
                 </div>
-                {wasmUploadUrl && (
-                  <div>
-                    <div className="text-[10px] uppercase text-slate-500">WASM Upload TX</div>
-                    <div className="mt-1">
-                      <a
-                        href={wasmUploadUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-cyan-400 hover:underline"
-                      >
-                        View TX Link <ExternalLink className="h-3 w-3" />
-                      </a>
-                    </div>
-                  </div>
-                )}
-                {contractDeployUrl && (
-                  <div>
-                    <div className="text-[10px] uppercase text-slate-500">Contract Deploy TX</div>
-                    <div className="mt-1">
-                      <a
-                        href={contractDeployUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-cyan-400 hover:underline"
-                      >
-                        View TX Link <ExternalLink className="h-3 w-3" />
-                      </a>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
 

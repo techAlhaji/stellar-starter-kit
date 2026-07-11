@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "stellar-sdk": "^12.3.0"
+    "stellar-sdk": "^13.3.0"
   },
   "devDependencies": {
     "@stellar-starter-kit/tsconfig": "workspace:*",

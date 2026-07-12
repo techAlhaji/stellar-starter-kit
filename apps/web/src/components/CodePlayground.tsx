@@ -57,15 +57,20 @@ export function buildPaymentTx(source: string, dest: string, amount: string, fee
   },
   soroban: {
     label: 'Soroban Client',
-    filename: 'StellarClient.ts',
-    code: `import { StellarClient } from '@stellar-starter-kit/sdk';
-import { formatStroopsToXlm } from '@stellar-starter-kit/utils';
+    filename: 'CounterService.ts',
+    code: `import { CounterClient } from '@stellar-starter-kit/contracts';
 
-// Read Horizon balance and parse units
-const client = new StellarClient('https://horizon-testnet.stellar.org');
-const account = await client.getServer().loadAccount(publicKey);
-const stroopsBalance = account.balances[0].balance;
-console.log('Balance in XLM:', formatStroopsToXlm(stroopsBalance));`,
+// Initialize strongly-typed smart contract client
+const client = new CounterClient.Client({
+  contractId: 'CBOSYQA...',
+  rpcUrl: 'https://soroban-testnet.stellar.org',
+  networkPassphrase: 'Test Horizon Network ; Public Sep 2015'
+});
+
+// Fetch current count & invoke on-chain increment method
+const currentVal = await client.get_count();
+const txResult = await client.increment();
+await txResult.signAndSend();`,
   },
   ui: {
     label: 'Custom UI',

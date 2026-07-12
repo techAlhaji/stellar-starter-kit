@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Flagship modular Counter smart contract containing `initialize(owner)`, `increment()`, `decrement()`, `reset()`, `get_count()`, and `get_owner()` across dedicated files (`lib.rs`, `storage.rs`, `event.rs`, `error.rs`).
+- Robust unit tests in `contracts/counter/src/test.rs` verifying contract errors, bounds limits, state manipulation, and event audits.
+- CLI automation command scripts `scripts/invoke-counter.ps1` and `scripts/invoke-counter.sh` to initialize, query, and mutate contract states on Testnet.
+- New root package manager script triggers: `pnpm build:contracts`, `pnpm optimize`, `pnpm deploy:counter`, and `pnpm invoke:counter`.
+- Root `docker-compose.yml` to support declarative local Stellar Quickstart node management.
+- Cross-platform PowerShell helper script `scripts/setup-local-node.ps1` for Windows developers.
+- Root `package.json` command script `"node:local": "docker compose up -d"` for quick start-ups.
+- Persistent ledger data volume mapping in local docker-compose configuration.
+
+### Changed
+
+- Migrated frontend counter demo (`apps/web/src/app/counter/page.tsx`) to compile-safe `client.get_count()` calls.
+- Overhauled code playground (`CodePlayground.tsx`) on the landing page to showcase `CounterClient` integration snippet.
+- Synchronized smart contract build, test, optimize, and deploy guides across `README.md` and `docs/development-guide.md`.
+- Updated `scripts/setup-local-node.sh` to check for Docker Compose and use it as default, falling back to raw `docker run` if compose is not present.
+
 ## [0.1.0] - 2026-07-09
 
 ### Added

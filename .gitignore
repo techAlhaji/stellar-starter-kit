@@ -45,3 +45,5 @@ Cargo.lock
 # Local binaries
 bin/
 
+# Temporary directories
+temp-old-modules/

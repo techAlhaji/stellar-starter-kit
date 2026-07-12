@@ -6,53 +6,106 @@ Welcome to the `stellar-starter-kit` developer documentation! This guide explain
 
 ## 1. Running Stellar Quickstart
 
-For local development, it is highly recommended to run a local node rather than testing directly on Testnet or Futurenet. We use the Stellar Quickstart Docker image.
+For local development, it is highly recommended to run a local node rather than testing directly on Testnet or Futurenet. We use the official Stellar Quickstart Docker image.
 
 ### Start the Local Node
 
-Run the following Docker command (or use the helper script in `/scripts`):
+You can spin up the node in three ways depending on your workflow and OS:
+
+#### Option A: Using pnpm Script (Recommended)
+
+This runs Docker Compose in the background:
 
 ```bash
-docker run --rm -it \
-  -p 8000:8000 \
-  --name stellar \
-  stellar/quickstart:latest \
-  --local
+pnpm run node:local
 ```
 
-### Horizon and RPC endpoints
+#### Option B: Using Setup Scripts
 
-Once running, you can access:
+Run the helper setup script for your platform:
 
-- **Horizon API**: `http://localhost:8000`
-- **Soroban RPC**: `http://localhost:8000/soroban/rpc`
+- **Windows (PowerShell)**:
+  ```powershell
+  ./scripts/setup-local-node.ps1
+  ```
+- **macOS / Linux (Bash)**:
+  ```bash
+  ./scripts/setup-local-node.sh
+  ```
+
+#### Option C: Direct Docker Compose
+
+```bash
+docker compose up -d
+```
+
+### Horizon and RPC Endpoints
+
+Once running, the following local services are available:
+
+- **Horizon API Gateway**: `http://localhost:8000`
+- **Soroban RPC Gateway**: `http://localhost:8000/soroban/rpc`
+
+### Stop the Local Node
+
+To stop the background node and clean up the container resources, run:
+
+```bash
+docker compose down
+```
 
 ---
 
-## 2. Soroban Smart Contract Scaffolding
+## 2. Soroban Smart Contract Development & Automation
 
-To write and compile Soroban smart contracts, you must install the Rust toolchain and the Soroban CLI.
+To compile, test, optimize, and deploy smart contracts, you can use the workspace shortcuts configured in the monorepo root.
 
-### Install Rust
+### Build Contracts
 
-Follow the instructions at [rustup.rs](https://rustup.rs/).
-
-### Install Soroban CLI
+Compile the Soroban Rust workspace contracts to WebAssembly:
 
 ```bash
-cargo install --locked soroban-cli
+pnpm build:contracts
 ```
 
-### Deploying a Contract
+### Optimize WASM
 
-1. Build contract WASM:
-   ```bash
-   cargo build --target wasm32-unknown-unknown --release
-   ```
-2. Deploy to local/testnet:
-   ```bash
-   soroban contract deploy \
-     --wasm target/wasm32-unknown-unknown/release/my_contract.wasm \
-     --source alice \
-     --network testnet
-   ```
+Optimize compiled contracts to minimize byte size and gas footprint:
+
+```bash
+pnpm optimize
+```
+
+### Deploy Contracts
+
+Deploy the optimized contracts to Stellar Testnet and generate strongly-typed TypeScript client bindings automatically inside `packages/contracts/src/generated`:
+
+```bash
+pnpm deploy:counter
+```
+
+### Invoke Contract via CLI
+
+Demonstrate and verify contract execution on Stellar Testnet:
+
+```bash
+pnpm invoke:counter
+```
+
+### Verification & Linting
+
+Run standard unit tests, formatting checks, and clippy lints inside the `contracts` workspace:
+
+```bash
+# Run unit tests
+cargo test --manifest-path contracts/Cargo.toml
+
+# Check code formatting
+cargo fmt --manifest-path contracts/Cargo.toml -- --check
+
+# Format code automatically
+cargo fmt --manifest-path contracts/Cargo.toml
+
+# Run Clippy lints
+cargo clippy --manifest-path contracts/Cargo.toml --all-targets -- -D warnings
+```

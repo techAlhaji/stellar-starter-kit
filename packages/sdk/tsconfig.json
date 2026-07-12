@@ -1,10 +1,13 @@
 {
-  "extends": "@stellar-starter-kit/tsconfig/base.json",
+  "extends": "../tsconfig/base.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
-    "noEmit": false
+    "noEmit": false,
+    "paths": {
+      "@stellar-starter-kit/core": ["../core/dist/index.d.ts"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

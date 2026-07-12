@@ -53,6 +53,12 @@ Contains deployable applications.
 
 - **`apps/web`**: The main entry point. A Next.js 15 app showcasing wallet connections, contract interactions, transaction building, and the component catalog.
 
+### `/contracts`
+
+Contains the Soroban Rust smart contract workspace.
+
+- **`contracts/counter`**: Flagship production-grade reference implementation containing modular business logic, instance storage TTL bumps, customized error structures, events emission, and comprehensive testing blocks.
+
 ### `/packages`
 
 Contains internal, highly reusable library packages.

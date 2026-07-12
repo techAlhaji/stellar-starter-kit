@@ -1,5 +1,5 @@
 {
-  "extends": "@stellar-starter-kit/tsconfig/nextjs.json",
+  "extends": "../../packages/tsconfig/nextjs.json",
   "compilerOptions": {
     "plugins": [
       {

@@ -32,22 +32,22 @@ _Focus: Monorepo configuration, developer environments, and initial scaffolding.
 
 - [x] Configure pnpm workspace and Turborepo.
 - [x] Setup Next.js 15, TypeScript, TailwindCSS, and shadcn/ui.
-- [ ] Configure ESLint, Prettier, Husky, and Conventional Commits.
-- [ ] Build basic Docker dev environment and Stellar Quickstart setup script.
-- [ ] Create basic documentation site template.
+- [x] Configure ESLint, Prettier, Husky, and Conventional Commits.
+- [x] Build basic Docker dev environment and Stellar Quickstart setup script.
+- [x] Create basic documentation site template.
 
 ### :wallet: v0.2: Wallet & Soroban Integration (Months 3–5)
 
 _Focus: Key wallet integrations and smart contract deployment tooling._
 
-- [ ] Implement `@stellar-starter-kit/wallets` package.
-  - [ ] Connect with Freighter wallet.
-  - [ ] Connect with Albedo, Rabe, and Hana wallets.
+- [x] Implement `@stellar-starter-kit/wallets` package.
+  - [x] Connect with Freighter wallet.
+  - [x] Connect with Albedo, Rabe, and Hana wallets.
   - [ ] Support WalletConnect for mobile wallets.
-- [ ] Scaffolding and hooks for Soroban smart contract interactions.
-  - [ ] Automatic type generation helper from WASM files.
-  - [ ] Custom React hooks for contract state retrieval (`useContractValue`).
-  - [ ] Custom hooks for invoking transactions (`useContractCall`).
+- [x] Scaffolding and hooks for Soroban smart contract interactions.
+  - [x] Automatic type generation helper from WASM files.
+  - [x] Custom React hooks for contract state retrieval.
+  - [x] Custom hooks for invoking transactions.
 - [ ] Live network/contract switching UI component.
 
 ### :sparkles: v0.5: Component Library & Examples (Months 6–8)

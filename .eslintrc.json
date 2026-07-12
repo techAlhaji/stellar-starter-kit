@@ -8,10 +8,11 @@
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
-  "ignorePatterns": ["**/generated/**", "dist/", ".next/"],
+  "ignorePatterns": ["**/generated/**", "dist/", ".next/", "**/*.d.ts"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+    "@next/next/no-html-link-for-pages": "off",
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "no-console": ["warn", { "allow": ["warn", "error"] }]
   },

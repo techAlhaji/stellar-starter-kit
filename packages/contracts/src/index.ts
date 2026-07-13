@@ -1,7 +1,7 @@
 // Export contracts configurations and utilities
 export const SOROBAN_NETWORKS = {
   TESTNET: {
-    networkPassphrase: 'Test Horizon Network ; Public Sep 2015',
+    networkPassphrase: 'Test SDF Network ; September 2015',
     rpcUrl: 'https://soroban-testnet.stellar.org',
   },
   MAINNET: {

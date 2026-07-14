@@ -43,11 +43,11 @@ Scaffolding Stellar and Soroban applications historically required developers to
 
 ```mermaid
 graph TD
-    subgraph apps/
+    subgraph apps ["apps/"]
         Web[web - Next.js 15 App Portal]
     end
 
-    subgraph packages/
+    subgraph packages ["packages/"]
         SDK[sdk - High-level Orchestration]
         Core[core - Stellar Horizon wraps]
         Hooks[hooks - React state & wallet balance]

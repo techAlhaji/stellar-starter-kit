@@ -5,9 +5,7 @@ use soroban_sdk::{
     vec, Env, IntoVal, TryIntoVal, Val, Vec,
 };
 
-fn setup_test_env(
-    env: &Env,
-) -> (Address, Address, Address, Address, token::Client<'_>, token::StellarAssetClient<'_>) {
+fn setup_test_env(env: &Env) -> (Address, Address, Address, Address, token::Client, token::StellarAssetClient) {
     let payer = Address::generate(env);
     let payee = Address::generate(env);
     let arbiter = Address::generate(env);
@@ -26,7 +24,7 @@ fn test_escrow_lifecycle_release_by_payer() {
     let (payer, payee, arbiter, token_id, token_client, token_admin_client) = setup_test_env(&env);
     token_admin_client.mint(&payer, &1000);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     let escrow_id = 1;
@@ -61,7 +59,7 @@ fn test_escrow_lifecycle_release_by_arbiter() {
     let (payer, payee, arbiter, token_id, token_client, token_admin_client) = setup_test_env(&env);
     token_admin_client.mint(&payer, &1000);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     let escrow_id = 1;
@@ -86,7 +84,7 @@ fn test_escrow_lifecycle_refund_by_payee() {
     let (payer, payee, arbiter, token_id, token_client, token_admin_client) = setup_test_env(&env);
     token_admin_client.mint(&payer, &1000);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     let escrow_id = 1;
@@ -111,7 +109,7 @@ fn test_escrow_lifecycle_refund_by_arbiter() {
     let (payer, payee, arbiter, token_id, token_client, token_admin_client) = setup_test_env(&env);
     token_admin_client.mint(&payer, &1000);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     let escrow_id = 1;
@@ -133,10 +131,9 @@ fn test_escrow_cancel_before_funding() {
     let env = Env::default();
     env.mock_all_auths();
 
-    let (payer, payee, arbiter, token_id, _token_client, _token_admin_client) =
-        setup_test_env(&env);
+    let (payer, payee, arbiter, token_id, _token_client, _token_admin_client) = setup_test_env(&env);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     let escrow_id = 1;
@@ -159,7 +156,7 @@ fn test_escrow_cancel_after_deadline() {
     let (payer, payee, arbiter, token_id, token_client, token_admin_client) = setup_test_env(&env);
     token_admin_client.mint(&payer, &1000);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     let escrow_id = 1;
@@ -189,7 +186,7 @@ fn test_escrow_cancel_before_deadline_fails() {
     let (payer, payee, arbiter, token_id, _token_client, token_admin_client) = setup_test_env(&env);
     token_admin_client.mint(&payer, &1000);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     let escrow_id = 1;
@@ -206,7 +203,10 @@ fn test_escrow_cancel_before_deadline_fails() {
 
     // Cancel by payer should fail
     let result = client.try_cancel_escrow(&escrow_id, &payer);
-    assert_eq!(result, Err(Ok(EscrowError::DeadlineNotReached)));
+    assert_eq!(
+        result,
+        Err(Ok(EscrowError::DeadlineNotReached))
+    );
 }
 
 #[test]
@@ -217,7 +217,7 @@ fn test_escrow_invalid_state_transitions() {
     let (payer, payee, arbiter, token_id, _token_client, token_admin_client) = setup_test_env(&env);
     token_admin_client.mint(&payer, &1000);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     let escrow_id = 1;
@@ -228,21 +228,30 @@ fn test_escrow_invalid_state_transitions() {
 
     // Try to release unfunded escrow -> should fail
     let res = client.try_release_escrow(&escrow_id, &payer);
-    assert_eq!(res, Err(Ok(EscrowError::InvalidStateTransition)));
+    assert_eq!(
+        res,
+        Err(Ok(EscrowError::InvalidStateTransition))
+    );
 
     // Fund it
     client.fund_escrow(&escrow_id);
 
     // Try to fund again -> should fail
     let res2 = client.try_fund_escrow(&escrow_id);
-    assert_eq!(res2, Err(Ok(EscrowError::InvalidStateTransition)));
+    assert_eq!(
+        res2,
+        Err(Ok(EscrowError::InvalidStateTransition))
+    );
 
     // Release it
     client.release_escrow(&escrow_id, &payer);
 
     // Try to refund already released escrow -> should fail
     let res3 = client.try_refund_escrow(&escrow_id, &arbiter);
-    assert_eq!(res3, Err(Ok(EscrowError::AlreadyFinalized)));
+    assert_eq!(
+        res3,
+        Err(Ok(EscrowError::AlreadyFinalized))
+    );
 }
 
 #[test]
@@ -253,7 +262,7 @@ fn test_escrow_unauthorized_operations() {
     let (payer, payee, arbiter, token_id, _token_client, token_admin_client) = setup_test_env(&env);
     token_admin_client.mint(&payer, &1000);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     let escrow_id = 1;
@@ -265,15 +274,24 @@ fn test_escrow_unauthorized_operations() {
 
     // Unauthorized release (payee calls it) -> should fail
     let res = client.try_release_escrow(&escrow_id, &payee);
-    assert_eq!(res, Err(Ok(EscrowError::UnauthorizedOperation)));
+    assert_eq!(
+        res,
+        Err(Ok(EscrowError::UnauthorizedOperation))
+    );
 
     // Unauthorized refund (payer calls it) -> should fail
     let res2 = client.try_refund_escrow(&escrow_id, &payer);
-    assert_eq!(res2, Err(Ok(EscrowError::UnauthorizedOperation)));
+    assert_eq!(
+        res2,
+        Err(Ok(EscrowError::UnauthorizedOperation))
+    );
 
     // Unauthorized cancel (arbiter calls it) -> should fail
     let res3 = client.try_cancel_escrow(&escrow_id, &arbiter);
-    assert_eq!(res3, Err(Ok(EscrowError::UnauthorizedOperation)));
+    assert_eq!(
+        res3,
+        Err(Ok(EscrowError::UnauthorizedOperation))
+    );
 }
 
 #[test]
@@ -281,22 +299,27 @@ fn test_escrow_validation_failures() {
     let env = Env::default();
     env.mock_all_auths();
 
-    let (payer, payee, arbiter, token_id, _token_client, _token_admin_client) =
-        setup_test_env(&env);
+    let (payer, payee, arbiter, token_id, _token_client, _token_admin_client) = setup_test_env(&env);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     // Invalid amount
     let res = client.try_create_escrow(&1, &payer, &payee, &arbiter, &token_id, &0, &1000);
-    assert_eq!(res, Err(Ok(EscrowError::InvalidAmount)));
+    assert_eq!(
+        res,
+        Err(Ok(EscrowError::InvalidAmount))
+    );
 
     // Successful creation
     client.create_escrow(&1, &payer, &payee, &arbiter, &token_id, &500, &1000);
 
     // Duplicate ID creation
     let res2 = client.try_create_escrow(&1, &payer, &payee, &arbiter, &token_id, &500, &1000);
-    assert_eq!(res2, Err(Ok(EscrowError::EscrowAlreadyExists)));
+    assert_eq!(
+        res2,
+        Err(Ok(EscrowError::EscrowAlreadyExists))
+    );
 }
 
 #[test]
@@ -307,11 +330,11 @@ fn test_escrow_events() {
     let (payer, payee, arbiter, token_id, _token_client, token_admin_client) = setup_test_env(&env);
     token_admin_client.mint(&payer, &1000);
 
-    let contract_id = env.register(EscrowContract, ());
+    let contract_id = env.register_contract(None, EscrowContract);
     let client = EscrowContractClient::new(&env, &contract_id);
 
     // We check events after each call because in v27 env.events().all() returns events from the last invocation.
-
+    
     // Create
     client.create_escrow(&1, &payer, &payee, &arbiter, &token_id, &500, &1000);
     let events = env.events().all();
@@ -333,8 +356,7 @@ fn test_escrow_events() {
     let events = env.events().all();
     // 1 transfer + 1 fund = 2 events
     assert_eq!(events.events().len(), 2);
-    let soroban_sdk::xdr::ContractEventBody::V0(event_v0_fund) =
-        &events.events().last().unwrap().body;
+    let soroban_sdk::xdr::ContractEventBody::V0(event_v0_fund) = &events.events().last().unwrap().body;
     let topics_fund: Vec<Val> = event_v0_fund.topics.try_into_val(&env).unwrap();
     assert_eq!(
         topics_fund,
@@ -351,8 +373,7 @@ fn test_escrow_events() {
     let events = env.events().all();
     // 1 transfer + 1 release = 2 events
     assert_eq!(events.events().len(), 2);
-    let soroban_sdk::xdr::ContractEventBody::V0(event_v0_release) =
-        &events.events().last().unwrap().body;
+    let soroban_sdk::xdr::ContractEventBody::V0(event_v0_release) = &events.events().last().unwrap().body;
     let topics_release: Vec<Val> = event_v0_release.topics.try_into_val(&env).unwrap();
     assert_eq!(
         topics_release,

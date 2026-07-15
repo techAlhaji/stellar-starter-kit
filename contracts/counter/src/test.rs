@@ -76,7 +76,11 @@ fn test_counter() {
     let data: Val = event_v0.data.try_into_val(&env).unwrap();
     assert_eq!(
         topics,
-        vec![&env, symbol_short!("counter").into_val(&env), symbol_short!("reset").into_val(&env)]
+        vec![
+            &env,
+            symbol_short!("counter").into_val(&env),
+            symbol_short!("reset").into_val(&env)
+        ]
     );
     assert_eq!(u32::try_from_val(&env, &data).unwrap(), 0u32);
 

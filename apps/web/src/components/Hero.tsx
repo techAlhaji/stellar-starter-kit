@@ -86,9 +86,15 @@ export default function Hero() {
             >
               <Link
                 href="/counter"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 px-8 font-semibold text-white shadow-lg shadow-purple-500/10 transition-all hover:brightness-110"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 px-6 font-semibold text-white shadow-lg shadow-purple-500/10 transition-all hover:brightness-110"
               >
-                Try Counter Demo <ArrowRight className="h-4 w-4" />
+                Counter Demo <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/escrow"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-500 px-6 font-semibold text-white shadow-lg shadow-cyan-500/10 transition-all hover:brightness-110"
+              >
+                Escrow Demo <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href="#code"

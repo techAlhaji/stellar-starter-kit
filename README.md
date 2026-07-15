@@ -188,7 +188,7 @@ Navigate to [http://localhost:3000](http://localhost:3000).
 
 ### 5. Smart Contract Workflow
 
-You can compile, optimize, deploy, and invoke our flagship Counter smart contract on-chain using:
+You can compile, optimize, deploy, and invoke our flagship smart contracts on-chain using:
 
 ```bash
 # Build Rust workspace contracts to WASM
@@ -197,21 +197,23 @@ pnpm build:contracts
 # Optimize WASM binaries for minimum gas size
 pnpm optimize
 
-# Deploy to Stellar Testnet and generate typed TypeScript client bindings
+# Deploy contracts to Stellar Testnet and generate typed TypeScript client bindings
 pnpm deploy:counter
+pnpm deploy:escrow
 
 # Verify execution by invoking on-chain
 pnpm invoke:counter
+pnpm invoke:escrow
 ```
 
 ### 🌐 Active Testnet Deployment Details
 
-Our reference smart contract is actively deployed on **Stellar Testnet**:
+Our reference smart contracts are actively deployed on **Stellar Testnet**:
 
-- **Contract ID**: `CCH5B5TFLLN56KB4B762CA2IVX4MYRDDMYXDYIEITCXYIGMIEMLWWCSF`
-- **Stellar.expert Explorer**: [View Contract Details](https://stellar.expert/explorer/testnet/contract/CCH5B5TFLLN56KB4B762CA2IVX4MYRDDMYXDYIEITCXYIGMIEMLWWCSF)
-- **WASM Upload Transaction**: [Explorer Link](https://stellar.expert/explorer/testnet/tx/f75b79a3f1d8c196886b2a21dfc8947720b44b354ba14396dc67cd00d6f2be63)
-- **Contract Deploy Transaction**: [Explorer Link](https://stellar.expert/explorer/testnet/tx/933f41945e44434c25ed4300439f63da758621ac2eefee787818cee9f9b446bc)
+- **Counter Contract ID**: `CAOTLOBANATQD3FFNUDD7CVRSUYU4RXKIQPOMIOE67BGRH34ALKMGPW3`
+  - [Stellar.expert Explorer Link](https://stellar.expert/explorer/testnet/contract/CAOTLOBANATQD3FFNUDD7CVRSUYU4RXKIQPOMIOE67BGRH34ALKMGPW3)
+- **Escrow Contract ID**: `CBSVMERZZTAXXDG4H3VSLN26XACXXOVOITJI45XPY4PGJJ7SUSKO4AS7`
+  - [Stellar.expert Explorer Link](https://stellar.expert/explorer/testnet/contract/CBSVMERZZTAXXDG4H3VSLN26XACXXOVOITJI45XPY4PGJJ7SUSKO4AS7)
 
 ---
 

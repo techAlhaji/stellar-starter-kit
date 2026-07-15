@@ -58,6 +58,7 @@ Contains deployable applications.
 Contains the Soroban Rust smart contract workspace.
 
 - **`contracts/counter`**: Flagship production-grade reference implementation containing modular business logic, instance storage TTL bumps, customized error structures, events emission, and comprehensive testing blocks.
+- **`contracts/escrow`**: Flagship secure escrow implementation supporting multi-party agreement lifecycles (create, fund, release, refund, cancel), status transitions, deadline enforcement, event publishing, and thorough test cases.
 
 ### `/packages`
 

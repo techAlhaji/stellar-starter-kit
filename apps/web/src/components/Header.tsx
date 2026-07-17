@@ -41,6 +41,12 @@ export default function Header() {
           >
             Counter Demo
           </Link>
+          <Link
+            href="/escrow"
+            className="font-semibold text-cyan-400 transition-colors hover:text-cyan-300"
+          >
+            Escrow Demo
+          </Link>
         </nav>
 
         <div className="flex items-center gap-4">

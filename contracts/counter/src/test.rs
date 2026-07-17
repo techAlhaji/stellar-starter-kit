@@ -5,7 +5,7 @@ use soroban_sdk::{testutils::Events, vec, Env, IntoVal, TryFromVal, TryIntoVal, 
 #[test]
 fn test_counter() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, CounterContract);
+    let contract_id = env.register(CounterContract, ());
     let client = CounterContractClient::new(&env, &contract_id);
 
     // Assert initial count is 0
